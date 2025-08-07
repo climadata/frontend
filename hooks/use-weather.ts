@@ -2,10 +2,9 @@
 
 import { useState } from "react"
 import type { WeatherData } from "@/types/weather"
-import { mockWeatherData } from "@/data/weather-data"
 
 export function useWeather() {
-  const [weatherData, setWeatherData] = useState<WeatherData>(mockWeatherData)
+  const [weatherData, setWeatherData] = useState<WeatherData | null>(null)
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
@@ -16,22 +15,12 @@ export function useWeather() {
     setError(null)
 
     try {
-      // Simular chamada de API
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      // Aqui você integraria com uma API real
-      console.log("Buscando previsão para:", city)
-
-      // Por enquanto, apenas atualiza a cidade nos dados mock
-      setWeatherData((prev) => ({
-        ...prev,
-        current: {
-          ...prev.current,
-          city: city,
-        },
-      }))
+      const response = await fetch(`/api/weather?city=${encodeURIComponent(city)}`)
+      if (!response.ok) throw new Error("Erro na resposta da API")
+      const data: WeatherData = await response.json()
+      setWeatherData(data)
     } catch (err) {
-      setError("Erro ao buscar dados meteorológicos: " + err)
+      setError("Erro ao buscar dados meteorológicos: " + (err as Error).message)
       console.error(err)
     } finally {
       setIsLoading(false)
