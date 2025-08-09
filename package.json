@@ -6,7 +6,10 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "check-services": "./scripts/check-services.sh",
+    "start-dev": "./scripts/start-dev.sh",
+    "start-all": "./scripts/start-all.sh"
   },
   "dependencies": {
     "@radix-ui/react-slot": "^1.2.3",

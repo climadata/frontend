@@ -3,7 +3,6 @@ import { Background } from "@/components/layout/background"
 import { PageHeader } from "@/components/weather/page-header"
 import { PageFooter } from "@/components/weather/page-footer"
 import { SearchForm } from "@/components/weather/search-form"
-import { WeatherAlerts } from "@/components/weather/weather-alerts"
 import { CurrentWeatherCard } from "@/components/weather/current-weather"
 import { WeatherDetails } from "@/components/weather/weather-details"
 import { ForecastCard } from "@/components/weather/forecast-card"
@@ -26,14 +25,15 @@ export default function WeatherPage() {
             </div>
           )}
 
-          <WeatherAlerts alerts={weatherData.alerts} />
-
-          <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
-            <CurrentWeatherCard weather={weatherData.current} />
-            <WeatherDetails weather={weatherData.current} />
-          </div>
-
-          <ForecastCard forecast={weatherData.forecast} />
+          {weatherData && (
+            <>
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-8">
+                <CurrentWeatherCard weather={weatherData.current} />
+                <WeatherDetails weather={weatherData.current} />
+              </div>
+              <ForecastCard forecast={weatherData.forecast} />
+            </>
+          )}
 
           <PageFooter />
         </div>
