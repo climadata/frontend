@@ -1,5 +1,5 @@
 // Configuração do API Gateway
-const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:3000';
+const GATEWAY_URL = process.env.NEXT_PUBLIC_GATEWAY_URL || 'http://localhost:8080';
 
 export const API_CONFIG = {
   // URL base do API Gateway
@@ -7,7 +7,8 @@ export const API_CONFIG = {
   
   // Endpoints específicos
   WEATHER: {
-    GET_CITY: (city: string) => `${GATEWAY_URL}/api/weather/city/${encodeURIComponent(city)}`,
+    GET_CITY: (city: string) =>
+      `${GATEWAY_URL}/api/weather/current/${encodeURIComponent(city)}`,
   },
   
   AUTH: {
