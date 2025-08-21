@@ -7,7 +7,8 @@ export const API_CONFIG = {
   
   // Endpoints específicos
   WEATHER: {
-    GET_CITY: (city: string) => `${GATEWAY_URL}/api/weather/city/${encodeURIComponent(city)}`,
+     GET_CITY: (city: string) =>
+      `${GATEWAY_URL}/api/weather/current/${encodeURIComponent(city)}`,
   },
   
   AUTH: {
