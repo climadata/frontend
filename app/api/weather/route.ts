@@ -1,37 +1,37 @@
+// app/api/weather/route.ts
 import { NextRequest, NextResponse } from "next/server";
-import { API_CONFIG } from "@/lib/api-config";
-import { mockWeatherData } from "@/data/weather-data";
+
+const GATEWAY_BASE =
+  process.env.GATEWAY_URL ?? "http://api-gateway:3000/api";
 
 export async function GET(req: NextRequest) {
-  const city = req.nextUrl.searchParams.get("city");
+  const city = req.nextUrl.searchParams.get("city")?.trim();
   if (!city) {
     return NextResponse.json({ error: "Cidade não informada" }, { status: 400 });
   }
 
-  try {
-    const gatewayUrl = API_CONFIG.WEATHER.GET_CITY(city);
-    const response = await fetch(gatewayUrl, { 
-      method: "GET",
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+  const url = `${GATEWAY_BASE}/weather?city=${encodeURIComponent(city)}`;
 
-    if (!response.ok) {
-      throw new Error(`Gateway error: ${response.status}`);
+  try {
+    const r = await fetch(url, { cache: "no-store" });
+    const contentType = r.headers.get("content-type") ?? "";
+    const body = contentType.includes("application/json")
+      ? await r.json()
+      : await r.text();
+
+    if (!r.ok) {
+      return NextResponse.json(
+        { error: "Gateway error", status: r.status, details: body },
+        { status: r.status }
+      );
     }
 
-    const data = await response.json();
-    return NextResponse.json(data);
-  } catch (error) {
-    console.error('Error fetching weather data from gateway:', error);
-    
-    // Retorna erro quando o serviço não está disponível
+    return NextResponse.json(body, { status: r.status });
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : String(e);
+    console.error("[api/weather] proxy failed:", message);
     return NextResponse.json(
-      { 
-        error: "Erro ao buscar dados meteorológicos",
-        message: error instanceof Error ? error.message : "Serviço temporariamente indisponível"
-      }, 
+      { error: "Erro ao buscar dados meteorológicos", message },
       { status: 503 }
     );
   }
