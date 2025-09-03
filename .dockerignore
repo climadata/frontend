@@ -1,4 +1,4 @@
-# Dependências locais
+# Dependências / lockfiles
 node_modules
 npm-debug.log
 yarn.lock
@@ -8,17 +8,26 @@ pnpm-lock.yaml
 .git
 .gitignore
 
-# Sistema / IDE
+# IDE / OS
 .DS_Store
 .vscode
 .idea
 
-# Logs
+# Logs / temporários
 *.log
 logs
 *.tmp
 
-# Build local (o Docker já gera dentro da imagem)
+# Builds locais
 dist
 .next
 out
+
+# Env files
+.env
+.env.*
+!.env.example
+
+# Não precisam ir no contexto do build
+Dockerfile*
+docker-compose*.yml
