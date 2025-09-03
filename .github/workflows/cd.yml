@@ -7,7 +7,7 @@ name: CD - Build & Push (frontend)
     tags:
       - 'v*.*.*'
   pull_request:
-    branches: [main, develop]
+    branches: [main, dev]
 
 jobs:
   docker:
