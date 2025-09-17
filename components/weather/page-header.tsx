@@ -8,7 +8,7 @@ export function PageHeader() {
         <span className="text-white/90 font-medium">Previsão do Tempo</span>
       </div>
       <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
-        Clima Data
+        ClimaData
       </h1>
       <p className="text-xl text-white/70 max-w-2xl mx-auto">
         Acompanhe as condições meteorológicas em tempo real
