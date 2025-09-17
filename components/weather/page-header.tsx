@@ -11,7 +11,7 @@ export function PageHeader() {
         Clima Data
       </h1>
       <p className="text-xl text-white/70 max-w-2xl mx-auto">
-        Acompanhe as condições meteorológicas em tempo real com alertas inteligentes
+        Acompanhe as condições meteorológicas em tempo real
       </p>
     </div>
   )
