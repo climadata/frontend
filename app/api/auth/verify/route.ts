@@ -5,12 +5,13 @@ export async function POST(request: NextRequest) {
     const body = await request.json()
     
     // Fazer proxy para o API Gateway
-    const apiGatewayUrl = 'http://localhost:3002/api/auth/register'
+    const apiGatewayUrl = 'http://localhost:3002/api/auth/verify'
     
     const response = await fetch(apiGatewayUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': request.headers.get('Authorization') || ''
       },
       body: JSON.stringify(body),
     })
@@ -23,7 +24,7 @@ export async function POST(request: NextRequest) {
     const data = await response.json()
     return NextResponse.json(data)
   } catch (error) {
-    console.error('Erro ao registrar usuário:', error)
+    console.error('Erro ao verificar token:', error)
     return NextResponse.json(
       { error: 'Erro interno do servidor' },
       { status: 500 }
