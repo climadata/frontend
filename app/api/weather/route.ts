@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const GATEWAY_BASE =
-  process.env.GATEWAY_URL ?? "http://api-gateway:3000/api";
+  process.env.GATEWAY_URL ?? "http://localhost:3002/api";
 
 export async function GET(req: NextRequest) {
   const city = req.nextUrl.searchParams.get("city")?.trim();

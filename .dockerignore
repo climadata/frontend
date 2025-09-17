@@ -31,3 +31,4 @@ out
 # Não precisam ir no contexto do build
 Dockerfile*
 docker-compose*.yml
+
